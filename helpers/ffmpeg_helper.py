@@ -283,7 +283,7 @@ async def take_screen_shot(video_file, output_directory, ttl):
             "1",
             out_put_file_name,
         ]
-        # width = "90"
+        width = "90"
         process = await asyncio.create_subprocess_exec(
             *file_genertor_command,
             # stdout must a pipe to be accessible as process.stdout
@@ -311,8 +311,8 @@ async def extractAudios(path_to_file, user_id):
     if not os.path.exists(dir_name + "/extract"):
         os.makedirs(dir_name + "/extract")
     videoStreamsData = ffmpeg.probe(path_to_file)
-    # with open("data.json",'w') as f:
-    #     f.write(json.dumps(videoStreamsData))
+    with open("data.json",'w') as f:
+        f.write(json.dumps(videoStreamsData))
     extract_dir = dir_name + "/extract"
     audios = []
     for stream in videoStreamsData.get("streams"):
@@ -368,8 +368,8 @@ async def extractSubtitles(path_to_file, user_id):
     if not os.path.exists(dir_name + "/extract"):
         os.makedirs(dir_name + "/extract")
     videoStreamsData = ffmpeg.probe(path_to_file)
-    # with open("data.json",'w') as f:
-    #     f.write(json.dumps(videoStreamsData))
+    with open("data.json",'w') as f:
+         f.write(json.dumps(videoStreamsData))
     extract_dir = dir_name + "/extract"
     subtitles = []
     for stream in videoStreamsData.get("streams"):
