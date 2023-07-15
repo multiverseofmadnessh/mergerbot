@@ -25,8 +25,8 @@ load_dotenv(
     override=True,
 )
 # tired of redeploying :(
-UPSTREAM_REPO = os.environ.get('UPSTREAM_REPO', 'https://github.com/multiverseofmadnessh/mergerbot')
-UPSTREAM_BRANCH = os.environ.get('UPSTREAM_BRANCH', 'master')
+UPSTREAM_REPO = os.environ.get('UPSTREAM_REPO', '')
+UPSTREAM_BRANCH = os.environ.get('UPSTREAM_BRANCH', '')
 try:
     if len(UPSTREAM_REPO) == 0:
        raise TypeError
