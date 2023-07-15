@@ -66,7 +66,7 @@ class Progress:
             await self._client.stop_transmission()
 
         if round(diff % float(EDIT_SLEEP_TIME_OUT)) == 0 or current == total:
-            # if round(current / total * 100, 0) % 5 == 0:
+            if round(current / total * 100, 0) % 5 == 0:
             percentage = current * 100 / total
             speed = current / diff
             elapsed_time = round(diff) * 1000
@@ -88,14 +88,14 @@ class Progress:
                 ),
                 round(percentage, 2),
             )
-            # cpu = "{psutil.cpu_percent()}%"
+             cpu = "{psutil.cpu_percent()}%"
             tmp = (
                 progress
                 + "\n**⌧ Total 🗃:**` 〚{1}〛`\n**⌧ Done ✅ :**` 〚{0}〛`\n**⌧ Speed 📊 :** ` 〚{2}/s〛`\n**⌧ ETA 🔃 :**` 〚{3}〛`\n {4}".format(
                     humanbytes(current),
                     humanbytes(total),
                     humanbytes(speed),
-                    # elapsed_time if elapsed_time != '' else "0 s",
+                    elapsed_time if elapsed_time != '' else "0 s",
                     estimated_total_time if estimated_total_time != "" else "0 s",
                     count
                 )
@@ -118,7 +118,7 @@ class Progress:
 
 def humanbytes(size):
     # https://stackoverflow.com/a/49361727/4723940
-    # 2**10 = 1024
+    2**10 = 1024
     if not size:
         return ""
     power = 2**10
