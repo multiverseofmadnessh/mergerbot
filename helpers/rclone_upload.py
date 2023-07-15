@@ -251,9 +251,9 @@ async def getGdriveLink(driveName, baseDir, entName: str, conf_path: str, isdir=
     LOGGER.info("Ent - ", entName)
     entName = re.escape(entName)
     filter_path = os.path.join(os.getcwd(), str(time.time()).replace(".", "") + ".txt")
-    # with open(filter_path,'w',encoding="UTF-8") as file:
-    # 	file.write(f"+ {entName}\n")
-    # 	file.write(f"- *")
+    with open(filter_path,'w',encoding="UTF-8") as file:
+     	file.write(f"+ {entName}\n")
+     	file.write(f"- *")
     get_id_cmd = [
         "rclone",
         "lsjson",
