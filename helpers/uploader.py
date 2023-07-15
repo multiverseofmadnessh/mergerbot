@@ -63,7 +63,7 @@ async def uploadVideo(
                     message_id=sent_.id,
                     caption=f"`{merged_video_path.rsplit('/',1)[-1]}`",
                 )
-                # await sent_.delete()
+                 await sent_.delete()
     else:
         try:
             sent_ = None
