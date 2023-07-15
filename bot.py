@@ -248,13 +248,13 @@ async def files_handler(c: Client, m: Message):
             quote=True,
         )
         return
-    # if MERGE_MODE.get(user_id) is None:
-    #     userMergeMode = database.getUserMergeSettings(user_id)
-    #     if userMergeMode is not None:
-    #         MERGE_MODE[user_id] = userMergeMode
-    #     else:
-    #         database.setUserMergeMode(uid=user_id, mode=1)
-    #         MERGE_MODE[user_id] = 1
+     if MERGE_MODE.get(user_id) is None:
+         userMergeMode = database.getUserMergeSettings(user_id)
+         if userMergeMode is not None:
+             MERGE_MODE[user_id] = userMergeMode
+         else:
+             database.setUserMergeMode(uid=user_id, mode=1)
+             MERGE_MODE[user_id] = 1
 
     if user.merge_mode == 1:
 
@@ -286,9 +286,9 @@ async def files_handler(c: Client, m: Message):
             queueDB.get(user_id)["videos"].append(m.id)
             queueDB.get(m.from_user.id)["subtitles"].append(None)
 
-            # LOGGER.info(
-            #     queueDB.get(user_id)["videos"], queueDB.get(m.from_user.id)["subtitles"]
-            # )
+             LOGGER.info(
+                 queueDB.get(user_id)["videos"], queueDB.get(m.from_user.id)["subtitles"]
+             )
 
             if len(queueDB.get(user_id)["videos"]) == 1:
                 reply_ = await editable.edit(
@@ -328,7 +328,7 @@ async def files_handler(c: Client, m: Message):
             queueDB.update({user_id: {"videos": [], "subtitles": [], "audios": []}})
         if len(queueDB.get(user_id)["videos"]) == 0:
             queueDB.get(user_id)["videos"].append(m.id)
-            # if len(queueDB.get(user_id)["videos"])==1:
+             if len(queueDB.get(user_id)["videos"])==1:
             reply_ = await editable.edit(
                 text="Now, Send all the audios you want to merge",
                 reply_markup=InlineKeyboardMarkup(
@@ -396,7 +396,7 @@ async def files_handler(c: Client, m: Message):
 @mergeApp.on_message(filters.photo & filters.private)
 async def photo_handler(c: Client, m: Message):
     user = UserSettings(m.chat.id, m.from_user.first_name)
-    # if m.from_user.id != int(Config.OWNER):
+     if m.from_user.id != int(Config.OWNER):
     if not user.allowed:
         res = await m.reply_text(
             text=f"Hi **{m.from_user.first_name}**\n\n 🛡️ Unfortunately you can't use me\n\n**Contact: 🈲 @{Config.OWNER_USERNAME}** ",
@@ -408,7 +408,7 @@ async def photo_handler(c: Client, m: Message):
     msg = await m.reply_text("Saving Thumbnail. . . .", quote=True)
     user.thumbnail = thumbnail
     user.set()
-    # await database.saveThumb(m.from_user.id, thumbnail)
+    await database.saveThumb(m.from_user.id, thumbnail)
     LOCATION = f"downloads/{m.from_user.id}_thumb.jpg"
     await c.download_media(message=m, file_name=LOCATION)
     await msg.edit_text(text="✅ Custom Thumbnail Saved!")
@@ -734,9 +734,9 @@ except KeyError:
 
 
 if __name__ == "__main__":
-    # with mergeApp:
-    #     bot:User = mergeApp.get_me()
-    #     bot_username = bot.username
+     with mergeApp:
+         bot:User = mergeApp.get_me()
+         bot_username = bot.username
     try:
         with userBot:
             userBot.send_message(
